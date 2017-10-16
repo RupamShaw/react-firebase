@@ -19,7 +19,7 @@ describe('<ChordEditor />', () => {
     expect(editor.find('div.chord-output').length).toEqual(1);
   });
  
-  //getChordMarkup() without chord
+  //getChordMarkup() without chord no data 
   it('renders the chord chart output', () => {
     const editor = shallow(<ChordEditor song={{chordpro: "Type some lyrics here by using chord in there is"}} />);
     const expectedOutput =

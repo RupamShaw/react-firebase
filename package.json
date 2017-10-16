@@ -11,7 +11,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    
     "test": "react-scripts test --env=jsdom --setupTestFrameworkScriptFile=raf/polyfill",
     "eject": "react-scripts eject"
   },
@@ -26,6 +25,7 @@
     "enzyme-adapter-react-16": "^1.0.1",
     "mobx": "^3.3.1",
     "mobx-react": "^4.3.3",
+    "react-router-dom": "^4.2.2",
     "react-test-renderer": "^16.0.0",
     "style-loader": "^0.19.0",
     "webpack": "^3.7.1",
