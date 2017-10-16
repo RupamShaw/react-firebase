@@ -2,5 +2,20 @@ playlist start from first create-rect-app
 https://www.youtube.com/watch?v=bqckLTOwdwg&index=2&list=PLbG4OyfwIxjFKJE_ZVZxsSt1ESc9S7kFb How to Create Custom React Components
 https://coderjourney.com/tutorials/how-to-create-custom-react-components/
 https://github.com/martijnversluis/ChordSheetJS 
-npm install chordsheetjs
+npm install chordsheetjs 
  dangerouslySetInnerHTML is from react to give rawHTML
+
+
+ -----------------part 2
+npm test this will be watcher 
+for running one time  > CI=tru npm test
+
+enzyme by airbnb 
+jest by facebook
+
+http://airbnb.io/enzyme/docs/installation/react-16.html
+npm i --save-dev enzyme enzyme-adapter-react-16 
+npm i --save-dev react-test-renderer@16
+
+cp app.test.js chordEditor.test.js
+import { shallow } from 'enzyme';
