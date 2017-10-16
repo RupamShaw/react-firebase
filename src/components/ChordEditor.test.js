@@ -18,7 +18,8 @@ describe('<ChordEditor />', () => {
     const editor = shallow(<ChordEditor song={{chordpro: ""}}/>);
     expect(editor.find('div.chord-output').length).toEqual(1);
   });
-
+ 
+  //getChordMarkup() without chord
   it('renders the chord chart output', () => {
     const editor = shallow(<ChordEditor song={{chordpro: "Type some lyrics here by using chord in there is"}} />);
     const expectedOutput =
@@ -35,7 +36,7 @@ describe('<ChordEditor />', () => {
     expect(realOutput.indexOf(expectedOutput) > -1).toEqual(true);
   });
  
-  
+  //getChordMarkup() with chord
   it('renders the chord chart output', () => {
     const editor = shallow(<ChordEditor song={{chordpro: "[B]New [Am]Lyrics"}} />);
     const expectedOutput =
@@ -53,7 +54,7 @@ describe('<ChordEditor />', () => {
     const realOutput = editor.find('div.chord-output').html();
     expect(realOutput.indexOf(expectedOutput) > -1).toEqual(true);
   });
-
+//handlechange test
   it('calls updateSong when the textarea changes', () => {
     var theSong;
     const update = (song) => {

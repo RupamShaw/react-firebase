@@ -5,14 +5,16 @@ class ChordEditor extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-   // this.state = { value: 'Type some lyrics here by using chord in there is'  };
+  
   }
 
   handleChange(e) {
     
    const chordpro = e.target.value;
 
-    this.props.updateSong({ chordpro:chordpro, });
+    this.props.updateSong({
+         chordpro:chordpro
+        });
     this.setState({ value: e.target.value})
   }
 

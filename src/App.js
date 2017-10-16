@@ -5,12 +5,25 @@ import Footer from './components/Footer';
 import ChordEditor from './components/ChordEditor';
 
 class App extends Component {
+  
+  constructor() {
+    super();
+    this.updateSong = this.updateSong.bind(this);
+    this.state = { song: {chordpro: "Type Lyrics here"} };
+  }
+
+  updateSong(song) {
+    // const songs = {...this.state.songs};
+    // songs[song.id] = song;
+
+    this.setState({song: song});
+  }
   render() {
     return (
       <div className="wrapper">
         <Header />
         <div className="workspace">
-          <ChordEditor song={{chordpro: ""}}/>
+          <ChordEditor song={ this.state.song } updateSong={ this.updateSong }/>
         </div>
         <Footer />
       </div>
