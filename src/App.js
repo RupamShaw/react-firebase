@@ -4,18 +4,55 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ChordEditor from './components/ChordEditor';
 import { BrowserRouter,Route,Link } from 'react-router-dom';
-
+import {  base } from './base';
 class App extends Component {
   
   constructor() {
     super();
     this.updateSong = this.updateSong.bind(this);
+    this.addSong = this.addSong.bind(this);
+    
     this.state = { 
-      songs: {
-       "1":{ id: 1, chordpro: "Lyrics for song 1"},
-       "2":{ id: 2, chordpro: "Lyrics for Song 2"},
-      }
+      songs: { }
      };
+  }
+  componentWillMount() {
+    // this.removeAuthListener = app.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     this.setState({
+    //       authenticated: true,
+    //       currentUser: user,
+    //       loading: false,
+    //     })
+
+        this.songsRef = base.syncState('songs', {
+          context: this,
+          state: 'songs'
+        });
+      // } else {
+      //   this.setState({
+      //     authenticated: false,
+      //     currentUser: null,
+      //     loading: false,
+      //   })
+
+       // base.removeBinding(this.songsRef);
+    //   }
+    // })
+  }
+addSong(title){
+  const songs = {...this.state.songs};
+  const id = Date.now();
+  songs[id] = {
+    id:id ,
+    title:title ,
+    chordpro:""
+  };
+  this.setState({songs});
+}
+  componentWillUnmount() {
+    //this.removeAuthListener();
+    base.removeBinding(this.songsRef);
   }
 
   updateSong(song) {
