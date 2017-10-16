@@ -38,9 +38,20 @@ yarn react-router-dom
 -----part 5 --Integrate React with Firebase ---
 https://coderjourney.com/tutorials/how-to-integrate-react-with-firebase/
 https://www.youtube.com/watch?v=vmLaZafaw9E&index=6&list=PLbG4OyfwIxjFKJE_ZVZxsSt1ESc9S7kFb How to Integrate React with Firebase 
- npm i re-base
+ npm i re-base firebase
+
+in base.js
+const app = firebase.initializeApp(config);
+const base = Rebase.createClass(app.database())
+const facebookProvider = new firebase.auth.FacebookAuthProvider()
+
+in componentwillmount this.songsRef = base.syncState('songs', {
+          context: this,
+          state: 'songs'
+        });
 
 addsong() in App.js
+
 
 If you load the application to the /songs route, you’ll no longer see anything, so we need to create a way 
 for us to add songs. Let’s create 
@@ -52,3 +63,24 @@ console:
 
 $r.addSong("Test Song")
 
+
+===============part 6 style 
+yarn add @blueprintjs react-addons-css-transition-group
+in index.js
+import 'normalize.css/normalize.css';
+import '@blueprintjs/core/dist/blueprint.css';
+
+header.js with navigation
+
+/songs made SongList separate component
+
+flex style used for compression depending on screensize view changes
+
+App.js
+in render() removed wrapper style and added style={{maxWidth: "1160px", margin: "0 auto" }}
+main-content style added
+
+ChordEditor.js
+import {Breadcrumb} from '@blueprintjs/core'
+
+cleanup package.json

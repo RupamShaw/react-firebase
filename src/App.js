@@ -3,10 +3,12 @@ import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ChordEditor from './components/ChordEditor';
-import { BrowserRouter,Route,Link } from 'react-router-dom';
+import { BrowserRouter,Route } from 'react-router-dom';
 import {  base } from './base';
+import  SongList  from './components/SongList';
+
 class App extends Component {
-  
+
   constructor() {
     super();
     this.updateSong = this.updateSong.bind(this);
@@ -16,6 +18,7 @@ class App extends Component {
       songs: { }
      };
   }
+
   componentWillMount() {
     // this.removeAuthListener = app.auth().onAuthStateChanged((user) => {
     //   if (user) {
@@ -40,16 +43,18 @@ class App extends Component {
     //   }
     // })
   }
-addSong(title){
-  const songs = {...this.state.songs};
-  const id = Date.now();
-  songs[id] = {
-    id:id ,
-    title:title ,
-    chordpro:""
-  };
-  this.setState({songs});
-}
+  
+  addSong(title){
+    const songs = {...this.state.songs};
+    const id = Date.now();
+    songs[id] = {
+      id:id ,
+      title:title ,
+      chordpro:""
+    };
+    this.setState({songs});
+  }
+
   componentWillUnmount() {
     //this.removeAuthListener();
     base.removeBinding(this.songsRef);
@@ -64,35 +69,29 @@ addSong(title){
 
   render() {
     return (
-      <div className="wrapper">
-        <Header />
+      <div style={{maxWidth: "1160px", margin: "0 auto" }}>
+        
         <BrowserRouter>
-          <div className="main-content">
-            <div className="workspace">
-             <Route path="/songs" render={(props) => {
-                const songIds = Object.keys(this.state.songs);
-                return (
-                  <ul>
-                  {songIds.map((id) => 
-                    {
-                      return(
-                        <li key={id}> 
-                          <Link to={`/songs/${id}`}>Song {id} </Link>
-                        </li>  
-                      )   
-                    })
-                  }
-                  </ul>   
-                ) 
-             }}  /> 
-             <Route path="/songs/:songId" render={(props) =>{
-                const song =this.state.songs[props.match.params.songId];
-                return( 
-                  song
-                  ? <ChordEditor song={ song } updateSong={ this.updateSong }/>
-                  : <h1>Song not found </h1>
-                ) 
-             }} />
+          <div>
+            <Header />
+            <div className="main-content"  style={{padding: "1em"}} >
+              <div className="workspace">
+    
+                <Route exact path="/songs" render={(props) => {
+                    return (
+                      <SongList songs={this.state.songs} />
+                    ) 
+                }}  /> 
+      
+                <Route path="/songs/:songId" render={(props) =>{
+                    const song =this.state.songs[props.match.params.songId];
+                    return( 
+                      song
+                      ? <ChordEditor song={ song } updateSong={ this.updateSong }/>
+                      : <h1>Song not found </h1>
+                    ) 
+                }} />
+              </div>
             </div>
           </div>
         </BrowserRouter>

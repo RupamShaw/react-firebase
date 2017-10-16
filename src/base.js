@@ -1,6 +1,6 @@
 import Rebase from 're-base';
 import firebase from 'firebase';
-//import 'firebase/database';
+
 // Initialize Firebase
 var config = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -14,4 +14,3 @@ const app = firebase.initializeApp(config);
 const base = Rebase.createClass(app.database())
 const facebookProvider = new firebase.auth.FacebookAuthProvider()
 export { app, base, facebookProvider }
-//export const databaseChord= firebase.database().ref().child('chords');

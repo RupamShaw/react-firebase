@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ChordSheetJS from 'chordsheetjs';
+import { Link } from 'react-router-dom';
 
 class ChordEditor extends Component {
   constructor(props) {
@@ -24,6 +25,12 @@ class ChordEditor extends Component {
 
   render() {
     return (
+      <div>
+        <ul className="pt-breadcrumbs">
+          <li><Link to="/songs" className="pt-breadcrumb">Songs</Link></li>
+          <li><Link to="#" className="pt-breadcrumb">{this.props.song.title}</Link></li>
+        </ul>
+        <h2 style={{margin: "0.5em 0"}}>{this.props.song.title}</h2>
         <div className="chord-editor">
           <div className="panel">
             <h3>Input</h3>
@@ -40,6 +47,7 @@ class ChordEditor extends Component {
               dangerouslySetInnerHTML={this.getChordMarkup()}/>
           </div>
         </div>
+      </div>  
     );
   }
 }
