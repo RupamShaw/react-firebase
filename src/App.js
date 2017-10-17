@@ -7,7 +7,8 @@ import ChordEditor from './components/ChordEditor';
 import { BrowserRouter,Route } from 'react-router-dom';
 import {  app, base } from './base';
 import  SongList  from './components/SongList';
-
+import { Spinner } from '@blueprintjs/core';
+import Logout from './components/Logout';
 class App extends Component {
 
   constructor() {
@@ -18,16 +19,18 @@ class App extends Component {
     this.state = { 
       songs: { },
       authenticated: false,
+      loading: true //being authentication and to use spinner
      };
   }
 
   componentWillMount() {
-    console.log('in cwm')
+    
     this.removeAuthListener = app.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log('tr in cwm')
         this.setState({
           authenticated: true,
+          loading: false,
           })
         this.songsRef = base.syncState('songs', {
           context: this,
@@ -37,6 +40,7 @@ class App extends Component {
         console.log('fal in cwm')
         this.setState({
           authenticated: false,
+          loading: false,
         })
       }
     })
@@ -66,6 +70,14 @@ class App extends Component {
   }
 
   render() {
+    if (this.state.loading === true) {
+      return (
+        <div style={{ textAlign: "center", position: "absolute", top: "25%", left: "50%" }}>
+          <h3>Loading</h3>
+          <Spinner />
+        </div>
+      )
+    }
     return (
       <div style={{maxWidth: "1160px", margin: "0 auto" }}>
         
@@ -75,6 +87,7 @@ class App extends Component {
             <div className="main-content"  style={{padding: "1em"}} >
               <div className="workspace">
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/logout" component={Logout} />
                 <Route exact path="/songs" render={(props) => {
                       return (
                         <SongList songs={this.state.songs} />

@@ -147,3 +147,28 @@ this.removeAuthListener = app.auth().onAuthStateChanged((user) => {
         })
       base.removeBinding(this.songsRef);
       }    
+
+
+      ===================part 8 email login 
+      https://coderjourney.com/tutorials/how-to-add-authentication-to-react-with-firebase/
+      This flash isn’t ideal, and we can get around it by adding a piece of state to indicate that the app is loading and 
+      then always set it to false once our onAuthStateChanged callback has run. If we’re loading we’ll render a 
+      Spinner from blueprintjs, otherwise, we’ll render the application as we have been
+
+      App.js
+      in componentWillMount add state loading: true 
+
+      ----------logout--
+      after Logout component creation in app.js add route  and header add button
+      -------------emailpassword------
+      3 cases 
+      
+      1. A user with the given email may exist, having signed in using Facebook.
+      2. The user might not yet exist, so we need to register them.
+      3. The user might exist and we get an error when signing in.
+
+      To handle these cases we’re going to be making first a call to get the providers attached to the email address.
+       Using the provider list, we’ll be able to determine where to go next or what message to show the user. 
+
+
+      ========part 9

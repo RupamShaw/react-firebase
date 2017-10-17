@@ -23,17 +23,17 @@ class Login extends Component {
   }
 
   authWithFacebook() {
-    console.log("going to auth with facebook")
+    console.log("going to authenticate by facebook")
     app.auth().signInWithPopup(facebookProvider)
     .then((result, error) => {
         if (error) {
         this.toaster.show({ intent: Intent.DANGER, message: "Unable to sign in with Facebook" })
-        console.log(" false in redire")
+       
         
         } else {
         //this.props.setCurrentUser(user)
-        console.log(" tr in redire")
-        this.setState({ redirect: true })
+       
+        this.setState({ redirect: true })// this will route to / thru render()
         }
     })
   }
@@ -45,33 +45,33 @@ class Login extends Component {
         email: this.emailInput.value,
         password: this.passwordInput.value 
     }])
-    // const email = this.emailInput.value
-    // const password = this.passwordInput.value
+    const email = this.emailInput.value
+    const password = this.passwordInput.value
 
-    // app.auth().fetchProvidersForEmail(email)
-    //   .then((providers) => {
-    //     if (providers.length === 0) {
-    //       // create user
-    //       return app.auth().createUserWithEmailAndPassword(email, password)
-    //     } else if (providers.indexOf("password") === -1) {
-    //       // they used facebook
-    //       this.loginForm.reset()
-    //       this.toaster.show({ intent: Intent.WARNING, message: "Try alternative login." })
-    //     } else {
-    //       // sign user in
-    //       return app.auth().signInWithEmailAndPassword(email, password)
-    //     }
-    //   })
-    //   .then((user) => {
-    //     if (user && user.email) {
-    //       this.loginForm.reset()
-    //       this.props.setCurrentUser(user)
-    //       this.setState({redirect: true})
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     this.toaster.show({ intent: Intent.DANGER, message: error.message })
-    //   })
+    app.auth().fetchProvidersForEmail(email)
+      .then((providers) => {
+        if (providers.length === 0) {
+          // create user
+          return app.auth().createUserWithEmailAndPassword(email, password)
+        } else if (providers.indexOf("password") === -1) {
+          // they used facebook
+          this.loginForm.reset()
+          this.toaster.show({ intent: Intent.WARNING, message: "Try alternative login." })
+        } else {
+          // sign user in
+          return app.auth().signInWithEmailAndPassword(email, password)
+        }
+      })
+      .then((user) => {
+        if (user && user.email) {
+          this.loginForm.reset()
+         // this.props.setCurrentUser(user)
+          this.setState({redirect: true})
+        }
+      })
+      .catch((error) => {
+        this.toaster.show({ intent: Intent.DANGER, message: error.message })
+      })
   }
 
 
