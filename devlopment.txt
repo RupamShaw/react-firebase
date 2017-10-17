@@ -84,3 +84,66 @@ ChordEditor.js
 import {Breadcrumb} from '@blueprintjs/core'
 
 cleanup package.json
+
+=========================part 7 --How to Use Firebase Authentication with React 
+https://coderjourney.com/tutorials/how-to-add-authentication-to-react-with-firebase/
+https://www.youtube.com/watch?v=XMuoDQy61ys&list=PLbG4OyfwIxjFKJE_ZVZxsSt1ESc9S7kFb&index=8  
+
+https://console.firebase.google.com/u/0/project/react-todo-6f169/authentication/users
+ in authentication  then signin method
+enable the “Email/Password” provider by clicking the row and then selecting to enable it from the
+ dialog. When  you enable the 
+“Facebook” provider, you’ll then need to get an application id and secret.
+
+https://developers.facebook.com/ for id and secret create app UserChord 
+add product to facebook and setup settings and in YesNo
+Embedded Browser OAuth Login  >>> then in Valid OAuth redirect URIs ---paste uri  which we selected in firebase facebook oAuthURL 
+
+
+2 ways -1 by facebook 2nd for user pwd
+
+add facebook button separate Login component
+
+Utilizing Firebase Authentication
+Re-base provides us with a way to interact with the data that we’ve stored in Firebase, but the most recent version of the library 
+dropped support for authentication (because you can use the firebase.Application itself for that). Our src/base.js is currently only 
+exporting the base constant, so we’ll need to add app to the list so that we can utilize it from our Login component. 
+We’ll also need to have a FacebookAuthProvider, so we’ll create one of those in src/base.js and return that too.
+in /base.js // lines above omitted
+const facebookProvider = new firebase.auth.FacebookAuthProvider()
+export { app, base, facebookProvider }
+
+
+
+Let’s pull in app and facebookProvider and set up our Facebook login first by implementing our authWithFacebook function.
+ We’re also going to add in a way to redirect using the Redirect component from react-router. To show errors, we’ll use a Toaster 
+ from Blueprintjs.
+
+src/components/Login.js
+const { redirect } = this.state
+
+    if (redirect) {
+      return (
+        <Redirect to={from} />
+      )
+    }
+
+but after returning back its lost so lifecycle method to call
+
+If we click the button to “Log In with Facebook” we will see a popup the first time that requires us to authorize the application, 
+but every time after that the popup should open and then quickly close and redirect us. The redirect works, but our header didn’t 
+change as we expected. It makes sense because we didn’t set the authenticated state. For our application to work the way we want it
+ to we’re going to need to tie some authentication login into the life-cycle of our application in componentWillMount. 
+ Let’s add this to App now.
+componentwillmount(){
+this.removeAuthListener = app.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          authenticated: true,
+        }else
+        else {
+        this.setState({
+          authenticated: false,
+        })
+      base.removeBinding(this.songsRef);
+      }    
