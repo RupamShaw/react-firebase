@@ -25,15 +25,12 @@ class Login extends Component {
   authWithFacebook() {
     console.log("going to authenticate by facebook")
     app.auth().signInWithPopup(facebookProvider)
-    .then((result, error) => {
+    .then((user, error) => {
         if (error) {
-        this.toaster.show({ intent: Intent.DANGER, message: "Unable to sign in with Facebook" })
-       
-        
+          this.toaster.show({ intent: Intent.DANGER, message: "Unable to sign in with Facebook" })
         } else {
-        //this.props.setCurrentUser(user)
-       
-        this.setState({ redirect: true })// this will route to / thru render()
+          this.props.setCurrentUser(user)
+          this.setState({ redirect: true })// this will route to / thru render()
         }
     })
   }
@@ -64,8 +61,9 @@ class Login extends Component {
       })
       .then((user) => {
         if (user && user.email) {
+          console.log(`in  user and email ${user}`)
           this.loginForm.reset()
-         // this.props.setCurrentUser(user)
+          this.props.setCurrentUser(user)
           this.setState({redirect: true})
         }
       })
@@ -76,11 +74,13 @@ class Login extends Component {
 
 
   render() {
-   if(this.state.redirect === true){
-       return <Redirect to= '/' />
-   }
+    const { from } = this.props.location.state || { from: { pathname: '/songs' } }
+    
+    if (this.state.redirect === true) {
+        return <Redirect to={from} />
+    }  
    
-   return (
+    return (
       <div style={loginStyles}>
             <Toaster ref={(element) => { this.toaster = element }} />
             <button style={{width: "100%"}} className="pt-button pt-intent-primary" onClick={() => { this.authWithFacebook() }}>

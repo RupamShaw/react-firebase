@@ -171,4 +171,7 @@ this.removeAuthListener = app.auth().onAuthStateChanged((user) => {
        Using the provider list, we’ll be able to determine where to go next or what message to show the user. 
 
 
-      ========part 9
+      ========part 9 tie songs with user by authenticted routes
+      We’re going to create an AuthenticatedRoute component that does the checking of our current user’s
+     authenticated state and redirects accordingly. This component is going to be small, so, for now,
+       we’re going to put it directly into src/App.js

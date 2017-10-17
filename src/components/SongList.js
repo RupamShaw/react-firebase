@@ -19,7 +19,6 @@ class SongList extends Component {
   render() {
     const { songs } = this.props
     const songIds = Object.keys(songs)
-
     return (
       <div>
         <h1 style={{marginBottom: "0.5em"}}>Songs</h1>
