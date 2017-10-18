@@ -60,7 +60,7 @@ class App extends Component {
           currentUser: user,
           loading: false,
        })
-        this.songsRef = base.syncState('songs', {
+        this.songsRef = base.syncState(`songs/${this.state.currentUser.uid}`, {
           context: this,
           state: 'songs'
         });
@@ -81,7 +81,8 @@ class App extends Component {
     songs[id] = {
       id:id ,
       title:title ,
-      chordpro:""
+      chordpro:"",
+      owner: this.state.currentUser.uid,
     };
     this.setState({songs});
   }

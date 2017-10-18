@@ -175,3 +175,28 @@ this.removeAuthListener = app.auth().onAuthStateChanged((user) => {
       We’re going to create an AuthenticatedRoute component that does the checking of our current user’s
      authenticated state and redirects accordingly. This component is going to be small, so, for now,
        we’re going to put it directly into src/App.js
+
+
+    =============part 10
+    https://coderjourney.com/tutorials/how-to-secure-data-and-routes-with-react/
+    https://www.youtube.com/watch?v=bmina1pleU0&t=1212s
+    newsongform added
+    and user tied with songs
+   
+    addSong(title){
+    const songs = {...this.state.songs};
+    const id = Date.now();
+    songs[id] = {
+      id:id ,
+      title:title ,
+      chordpro:"",
+      owner: this.state.currentUser.uid,
+    };
+    this.setState({songs});
+  }
+
+    this.songsRef = base.syncState(`songs/${this.state.currentUser.uid}`, {
+          context: this,
+          state: 'songs'
+        });
+    
