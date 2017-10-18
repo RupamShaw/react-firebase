@@ -18,7 +18,7 @@ class Header extends Component {
   }
 
   render() {
-    const { addSong } = this.props
+    //const { addSong } = this.props
     
     return (
       <nav className="pt-navbar">
@@ -35,7 +35,7 @@ class Header extends Component {
           <div className="pt-navbar-group pt-align-right">
             <Link className="pt-button pt-minimal pt-icon-music" to="/songs">Songs</Link>
             <Popover
-                content={(<NewSongForm addSong={addSong} postSubmitHandler={this.closePopover}/>)}
+                content={(<NewSongForm addSong={this.props.addSong} postSubmitHandler={this.closePopover}/>)}
                 interactionKind={PopoverInteractionKind.CLICK}
                 isOpen={this.state.popoverOpen}
                 onInteraction={(state) => this.setState({ popoverOpen: state })}

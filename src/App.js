@@ -21,6 +21,28 @@ function AuthenticatedRoute({component: Component, authenticated, ...rest}) {
       )
 }
 
+function ShowRoute({component: Component, items, param, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={({match, ...props}) => {
+        if (rest.requireAuth === true && !rest.authenticated) {
+          return (
+            <Redirect to={{pathname: '/login', state: {from: props.location}}} />
+          )
+        }
+
+        const item = items[match.params[param]]
+        if (item) {
+          return <Component item={item} {...props} match={match} {...rest}/>
+        } else {
+          return <h1>Not Found</h1>
+        }
+      }}
+    />
+  )
+}
+
 class App extends Component {
 
   constructor() {
@@ -71,6 +93,8 @@ class App extends Component {
           currentUser: null,
           loading: false,
         })
+
+        base.removeBinding(this.songsRef);
       }
     })
   }
@@ -129,14 +153,14 @@ class App extends Component {
                   component={SongList}
                   songs={this.state.songs} 
                 />
-                <Route path="/songs/:songId" render={(props) =>{
-                    const song =this.state.songs[props.match.params.songId];
-                      return( 
-                        song
-                        ? <ChordEditor song={ song } updateSong={ this.updateSong }/>
-                        : <h1>Song not found </h1>
-                      ) 
-                   }} 
+                <ShowRoute
+                  path="/songs/:songId"
+                  component={ChordEditor}
+                  authenticated={this.state.authenticated}
+                  requireAuth={true}
+                  param="songId"
+                  updateSong={this.updateSong}
+                  items={this.state.songs} 
                 />
               </div>
             </div>
